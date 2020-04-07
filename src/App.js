@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from './components/Header/Header';
-import LineGraph from './components/LineGraph/LineGraph';
+import Dashboard from './components/Dashboard/Dashboard';
 import './App.scss';
 
 function App() {
   return (
     <React.Fragment>
       <Header />
-      <LineGraph />
+      <Dashboard />
     </React.Fragment>
   );
 }
