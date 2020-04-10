@@ -49,13 +49,20 @@ export default function Header() {
         unmountOnExit
       >
         <nav className="Nav">
-            <Link 
-                to={"/"}
-                style={{ textDecoration: 'none' }}
-                onClick={toggleNav}
-            >
-                Line Graph Page
-            </Link>
+          <Link 
+            to={"/"}
+            style={{ textDecoration: 'none' }}
+            onClick={toggleNav}
+          >
+            Line Graph Page
+          </Link>
+          <Link 
+            to={"/donut-chart"}
+            style={{ textDecoration: 'none' }}
+            onClick={toggleNav}
+          >
+            Donut Chart Page
+          </Link>
         </nav>
       </CSSTransition>
       <button onClick={toggleNav} className="header-button">

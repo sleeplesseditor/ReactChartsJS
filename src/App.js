@@ -5,6 +5,7 @@ import LazyLoader from './components/LazyLoader/LazyLoader';
 import './App.scss';
 
 const DashboardPage = React.lazy(() => import('./pages/Dashboard/Dashboard'));
+const DonutPage = React.lazy(() => import('./pages/DonutPage/DonutPage'));
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
     <Header />
       <Switch>
         <Route exact path="/" component={LazyLoader(DashboardPage)} />
+        <Route exact path="/donut-chart" component={LazyLoader(DonutPage)} />
       </Switch>
   </Router>
   );
