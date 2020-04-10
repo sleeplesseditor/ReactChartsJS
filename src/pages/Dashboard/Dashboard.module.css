@@ -1,5 +1,4 @@
 .container {
-  height: 100vh;
   width: 100%;
   background: var(--theme-primary);
   color: #000;
@@ -8,14 +7,14 @@
   flex-direction: column;
 }
 
-.header {
+.heading {
   display: flex;
-  /* align-items: center; */
+  align-items: center;
   margin-top: 5rem;
   flex-direction: row;
 }
 
-.header > img {
+.heading > img {
   margin-right: 5px;
 }
 
