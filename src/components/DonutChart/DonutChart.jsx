@@ -35,7 +35,6 @@ export default class DonutChart extends PureComponent {
 
       labels.forEach(label => {
         labelColors.push(this.dynamicColors());
-        console.log(label)
       })
 
       if (typeof myDonutChart !== "undefined") myDonutChart.destroy();
