@@ -20,9 +20,23 @@ export default class DonutChart extends PureComponent {
         this.buildChart();
     }
 
+    dynamicColors = function() {
+      var r = Math.floor(Math.random() * 255);
+      var g = Math.floor(Math.random() * 255);
+      var b = Math.floor(Math.random() * 255);
+      return "rgb(" + r + "," + g + "," + b + ")";
+  };
+
     buildChart = () => {
       const myChartRef = this.chartRef.current.getContext("2d");
       const { data, labels } = this.props;
+
+      const labelColors = [];
+
+      labels.forEach(label => {
+        labelColors.push(this.dynamicColors());
+        console.log(label)
+      })
 
       if (typeof myDonutChart !== "undefined") myDonutChart.destroy();
 
@@ -32,19 +46,19 @@ export default class DonutChart extends PureComponent {
           labels: labels,
           datasets: [
             {
-              label: 'Company',
               data: data,
-              fill: true,
-              backgroundColor: 'rgb(255, 99, 132)',
-              borderColor: 'transparent',
+              fill: false,
+              backgroundColor: labelColors,
+              borderColor: '#fff',
+              borderWidth: 3,
               padding: 120,
             }
           ]
         },
         options: {
           tooltips: {
-            displayColors: false,
-            titleFontSize: 16,
+            displayColors: true,
+            titleFontSize: 18,
             bodyFontSize: 14,
             xPadding: 20,
             yPadding: 20,
