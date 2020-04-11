@@ -22,27 +22,22 @@ export default class DonutChart extends PureComponent {
 
     buildChart = () => {
       const myChartRef = this.chartRef.current.getContext("2d");
-      const { data, average, labels } = this.props;
+      const { data, labels } = this.props;
 
       if (typeof myDonutChart !== "undefined") myDonutChart.destroy();
 
       myDonutChart = new Chart(myChartRef, {
         type: "doughnut",
         data: {
-          //Bring in data
           labels: labels,
           datasets: [
             {
-              label: "Sales",
+              label: 'Company',
               data: data,
-              fill: false,
-              borderColor: "#6610f2"
-            },
-            {
-              label: "National Average",
-              data: average,
-              fill: false,
-              borderColor: "#E0E0E0"
+              fill: true,
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderColor: 'transparent',
+              padding: 120,
             }
           ]
         },
@@ -51,13 +46,8 @@ export default class DonutChart extends PureComponent {
             displayColors: false,
             titleFontSize: 16,
             bodyFontSize: 14,
-            xPadding: 10,
-            yPadding: 10,
-            callbacks: {
-                label: (tooltipItem, data) => {
-                    return `$ ${tooltipItem.value}`
-                }
-            }
+            xPadding: 20,
+            yPadding: 20,
           }
         }
       });
@@ -65,7 +55,7 @@ export default class DonutChart extends PureComponent {
 
     render() {
       return (
-        <div>
+        <div className="canvas-container">
           <canvas
             id="myChart"
             ref={this.chartRef}

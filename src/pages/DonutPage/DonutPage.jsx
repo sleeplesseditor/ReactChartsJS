@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import DonutChart from '../../components/DonutChart/DonutChart';
+import axios from 'axios';
 import './DonutPage.scss';
-import { managerData, yearLabels } from "../../data/mockData";
 
 const DonutPage = () => {
-  const [yearLabel, yearLabelSetter] = useState();
-  const [data, dataSetter] = useState();
+  const [yearLabel, yearLabelSetter] = useState([]);
+  const [dataSet, dataSetter] = useState([]);
 
   useEffect(() => {
-    yearLabelSetter(yearLabels);
-    dataSetter(managerData);
+    axios.get('https://d3-datasets.firebaseio.com/donut_third_data.json')
+      .then(
+        response => response.data.forEach(entry => {
+          dataSetter(dataSet => [...dataSet, entry.price])
+          yearLabelSetter(yearLabel => [...yearLabel, entry.company])
+        })
+      )
+      .catch(error => console.log(error))
   }, []);
 
     return (
@@ -17,7 +23,7 @@ const DonutPage = () => {
         <h1>Donut Chart Page</h1>
         <DonutChart 
           labels={yearLabel}
-          data={data}
+          data={dataSet}
         />
       </div>
     )
