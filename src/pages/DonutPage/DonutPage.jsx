@@ -9,39 +9,56 @@ const DonutPage = () => {
   const [dataSet, dataSetter] = useState([]);
   const [tableData, tableDataSetter] = useState([]);
 
+  // set Table data first, then use table Array to set data and labels
+
   useEffect(() => {
     axios.get('https://d3-datasets.firebaseio.com/donut_third_data.json')
       .then(
         response => response.data.forEach(entry => {
+          tableDataSetter(tableData => [...tableData, entry])
           dataSetter(dataSet => [...dataSet, entry.price])
           yearLabelSetter(yearLabel => [...yearLabel, entry.company])
-          tableDataSetter(tableData => [...tableData, entry]);
         })
       )
       .catch(error => console.log(error))
   }, []);
 
-  console.log('TABLE DATA', tableData);
-
   const updateData = (data) => {
-    dataSetter({ data })
-    yearLabelSetter({ data })
-    tableDataSetter({ data })
+    tableDataSetter(data)
+    console.log('TABLE DATA', tableData);
+    const labelList = [];
+    const dataList = [];
+
+    tableData.forEach(entry => {
+      labelList.push(entry.company)
+      dataList.push(entry.price);
+    })
+    dataSetter(dataList)
+    yearLabelSetter(labelList)
+  }
+
+  const renderChart = () => {
+    if (tableData.length === 0) {
+      return 'No Data Yet'
+    }
+    return (
+      <div className="donut-container-graphs">
+        <DonutChart 
+          labels={yearLabel}
+          data={dataSet}
+        />
+        <DonutChartTable 
+          data={tableData}
+          updateData={updateData} 
+        />
+      </div>
+    )
   }
 
     return (
       <div className="donut-container">
         <h1>Donut Chart Page</h1>
-        <div className="donut-container-graphs">
-          <DonutChart 
-            labels={yearLabel}
-            data={dataSet}
-          />
-          <DonutChartTable 
-            data={tableData}
-            updateData={updateData} 
-          />
-        </div>
+        {renderChart()}
       </div>
     )
 };
