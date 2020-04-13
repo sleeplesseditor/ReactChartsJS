@@ -8,11 +8,11 @@ class Table extends Component {
     }
     
     handleSubmit = () => {
-      this.props.updateData([...this.props.data, this.state])
       this.setState({
         company: '',
         price: ''
       })
+      this.props.updateData([...this.props.data, this.state])
     }
 
     handleChange = (event) => {

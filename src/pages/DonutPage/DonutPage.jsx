@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import DonutChart from '../../components/DonutChart/DonutChart';
 import axios from 'axios';
@@ -22,14 +23,13 @@ const DonutPage = () => {
       )
       .catch(error => console.log(error))
   }, []);
-
+  
   const updateData = (data) => {
     tableDataSetter(data)
-    console.log('TABLE DATA', tableData);
     const labelList = [];
     const dataList = [];
 
-    tableData.forEach(entry => {
+    data.forEach(entry => {
       labelList.push(entry.company)
       dataList.push(entry.price);
     })

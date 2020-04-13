@@ -20,6 +20,13 @@ export default class DonutChart extends PureComponent {
         this.buildChart();
     }
 
+    componentWillReceiveProps(newProps){
+      if(newProps.labels && newProps.data) {
+           if(myDonutChart){myDonutChart.destroy()};
+           this.buildChart(newProps.labels, newProps.data)
+      }
+ }
+
     dynamicColors = function() {
       var r = Math.floor(Math.random() * 255);
       var g = Math.floor(Math.random() * 255);
@@ -49,7 +56,7 @@ export default class DonutChart extends PureComponent {
               fill: false,
               backgroundColor: labelColors,
               borderColor: '#fff',
-              borderWidth: 3,
+              borderWidth: 0,
               padding: 120,
             }
           ]
