@@ -38,15 +38,12 @@ const DonutPage = () => {
   }
 
   const renderChart = () => {
-    if (tableData.length === 0) {
-      return 'No Data Yet'
-    }
     return (
       <div className="donut-container-graphs">
-        <DonutChart 
+        {tableData.length !== 0 ? <DonutChart 
           labels={yearLabel}
           data={dataSet}
-        />
+        /> : 'No Data Yet'}
         <DonutChartTable 
           data={tableData}
           updateData={updateData} 

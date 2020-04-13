@@ -17,15 +17,16 @@ export default class DonutChart extends PureComponent {
     }
 
     componentDidUpdate() {
-        this.buildChart();
+      this.props.labels.forEach(label => {
+        this.labelColors.push(this.dynamicColors());
+      })
+
+      myDonutChart.data.labels = this.props.labels;
+      myDonutChart.data.datasets[0].data = this.props.data;
+      myDonutChart.update();
     }
 
-    componentWillReceiveProps(newProps){
-      if(newProps.labels && newProps.data) {
-           if(myDonutChart){myDonutChart.destroy()};
-           this.buildChart(newProps.labels, newProps.data)
-      }
- }
+    labelColors = [];
 
     dynamicColors = function() {
       var r = Math.floor(Math.random() * 255);
@@ -38,12 +39,6 @@ export default class DonutChart extends PureComponent {
       const myChartRef = this.chartRef.current.getContext("2d");
       const { data, labels } = this.props;
 
-      const labelColors = [];
-
-      labels.forEach(label => {
-        labelColors.push(this.dynamicColors());
-      })
-
       if (typeof myDonutChart !== "undefined") myDonutChart.destroy();
 
       myDonutChart = new Chart(myChartRef, {
@@ -54,7 +49,7 @@ export default class DonutChart extends PureComponent {
             {
               data: data,
               fill: false,
-              backgroundColor: labelColors,
+              backgroundColor: this.labelColors,
               borderColor: '#fff',
               borderWidth: 0,
               padding: 120,
@@ -68,7 +63,11 @@ export default class DonutChart extends PureComponent {
             bodyFontSize: 14,
             xPadding: 20,
             yPadding: 20,
-          }
+          },
+          animation: {
+            animateRotate: false,
+            animateScale: false,
+          },
         }
       });
     }
