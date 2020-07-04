@@ -1,38 +1,34 @@
 import React, { Component } from 'react';
 import { Chart } from 'chart.js';
+import { dynamicColors } from '../../components/Dashboard/Helpers';
 
-class BarChart extends Component {
+class DonutChart extends Component {
   constructor(props) {
     super(props);
-    this.canvasRef = React.createRef();
+    this.chartRef = React.createRef();
   }
 
   componentDidMount() {
-    this.myChart = new Chart(this.canvasRef.current, {
-      type: 'bar',
+    const colorLabel = this.props.data.map(d => d.label);
+    colorLabel.forEach(label => {
+      this.labelColors.push(dynamicColors());
+    })
+    this.myChart = new Chart(this.chartRef.current, {
+      type: 'doughnut',
       options: {
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                min: 0,
-                max: 100
-              }
-            }
-          ]
-        }
+        maintainAspectRatio: false
       },
       data: {
         labels: this.props.data.map(d => d.label),
         datasets: [{
-          label: this.props.title,
           data: this.props.data.map(d => d.value),
-          backgroundColor: this.props.color
+          backgroundColor: this.labelColors
         }]
       }
     });
   }
+
+  labelColors = [];
 
   componentDidUpdate() {
     this.myChart.data.labels = this.props.data.map(d => d.label);
@@ -41,8 +37,8 @@ class BarChart extends Component {
   }
 
   render() {
-    return <canvas ref={this.canvasRef} />
+    return <canvas ref={this.chartRef} />;
   }
 }
 
-export default BarChart;
+export default DonutChart;
