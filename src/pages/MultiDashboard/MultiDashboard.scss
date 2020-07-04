@@ -1,0 +1,22 @@
+.dashboard-container {
+  display: inline-block;
+  margin-top: 5rem;
+  padding: 2%;
+  width: 96%;
+
+  &-main{
+    height: 400px;
+  }
+
+  &-sub {
+    height: 300px;
+  }
+}
+
+@media (min-width: 700px) {
+  .dashboard-container {
+    &-sub {
+      width: 29%;
+    }
+  }
+}

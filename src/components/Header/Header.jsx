@@ -63,6 +63,13 @@ export default function Header() {
           >
             Donut Chart Page
           </Link>
+          <Link 
+            to={"/dashboard"}
+            style={{ textDecoration: 'none' }}
+            onClick={toggleNav}
+          >
+            Dashboard Page
+          </Link>
         </nav>
       </CSSTransition>
       <button onClick={toggleNav} className="header-button">
