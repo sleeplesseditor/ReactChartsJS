@@ -10,8 +10,6 @@ const DonutPage = () => {
   const [dataSet, dataSetter] = useState([]);
   const [tableData, tableDataSetter] = useState([]);
 
-  // set Table data first, then use table Array to set data and labels
-
   useEffect(() => {
     axios.get('https://d3-datasets.firebaseio.com/donut_third_data.json')
       .then(

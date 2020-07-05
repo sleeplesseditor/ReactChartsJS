@@ -57,18 +57,24 @@ export default class DonutChart extends PureComponent {
           ]
         },
         options: {
+          maintainAspectRatio: true,
           tooltips: {
             displayColors: true,
-            titleFontSize: 18,
-            bodyFontSize: 14,
+            titleFontSize: 20,
+            bodyFontSize: 16,
             xPadding: 20,
             yPadding: 20,
+            callbacks: {
+              label: (tooltipItem, data, index) => {
+                return `${data.labels[tooltipItem.index]}: $${Number(`${data.datasets[0].data[tooltipItem.index]}`).toLocaleString('en')}`
+              }
+            }
           },
           animation: {
-            animateRotate: false,
-            animateScale: false,
+            animateRotate: true,
+            animateScale: true,
           },
-        }
+        },
       });
     }
 
